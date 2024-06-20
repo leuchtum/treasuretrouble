@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "treasuretrouble"
-version = "0.0.3"
+version = "0.0.4"
 description = ""
 authors = ["Daniel Müller <acct.d-mueller@mailbox.org>"]
 readme = "README.md"
@@ -17,18 +17,29 @@ jinja2 = "^3.1.4"
 pytest = "^8.2.2"
 mypy = "^1.10.0"
 ruff = "^0.4.9"
+bump-my-version = "^0.23.0"
 
+
+[tool.bumpversion]
+current_version = "0.0.4"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
+search = "{current_version}"
+replace = "{new_version}"
+regex = false
+ignore_missing_version = false
+ignore_missing_files = false
+tag = false
+sign_tags = false
+tag_name = "v{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+commit = false
+message = "Bump version: {current_version} → {new_version}"
+commit_args = ""
 [build-system]
-requires = ["poetry-core", "poetry-dynamic-versioning"]
-build-backend = "poetry_dynamic_versioning.backend"
-
-[tool.poetry-dynamic-versioning]
-enable = true
-style = "semver"
-vcs = "git"
-
-[tool.poetry-dynamic-versioning.substitution]
-folders = [{ path = "src" }]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 python_version = "3.12"
