@@ -27,6 +27,9 @@ enable = true
 style = "semver"
 vcs = "git"
 
+[tool.poetry-dynamic-versioning.substitution]
+folders = [{ path = "src" }]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
