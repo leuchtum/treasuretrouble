@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "treasuretrouble"
-version = "0.0.0"
+version = "0.0.3"
 description = ""
 authors = ["Daniel Müller <acct.d-mueller@mailbox.org>"]
 readme = "README.md"
