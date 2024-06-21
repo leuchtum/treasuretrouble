@@ -1,4 +1,3 @@
 from treasuretrouble.config import settings as settings
 from treasuretrouble.logging import logger as logger
-
-__version__ = "0.0.8"
+from treasuretrouble.version import __version__ as __version__

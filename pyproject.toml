@@ -50,7 +50,7 @@ search = "version = \"{current_version}\""
 replace = "version = \"{new_version}\""
 
 [[tool.bumpversion.files]]
-filename = "src/treasuretrouble/__init__.py"
+filename = "src/treasuretrouble/version.py"
 
 
 [build-system]
