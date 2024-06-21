@@ -31,8 +31,11 @@ Mit **Jinja2** können gute Templates für die Kommunikation erstellt werden. M�
 
 # TT CLI
 
-Als CLI Framework soll **typer** genutzt werden. 
+Als CLI Framework soll **click** genutzt werden. 
 
 # TT Config
 
 Als Configurations Framework soll **dynaconf** genutzt werden.
+
+# Misc
+* Für das Logging kommt **structlog** zum Einsatz, da LiteStar ein structlog Plugin besitzt.
