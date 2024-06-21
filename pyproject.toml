@@ -58,5 +58,9 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
+ignore_missing_imports = true
 python_version = "3.12"
 strict = true
+
+[tool.ruff]
+fix = true
