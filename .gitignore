@@ -1,1 +1,4 @@
 *.pyc
+
+# Ignore dynaconf secret files
+.secrets.*
