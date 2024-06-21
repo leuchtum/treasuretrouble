@@ -12,7 +12,7 @@ pydantic = "^2.7.4"
 litestar = "^2.9.0"
 python-telegram-bot = "^21.3"
 jinja2 = "^3.1.4"
-piccolo = "^1.12.0"
+piccolo = { extras = ["postgres", "sqlite"], version = "^1.12.0" }
 structlog = "^24.2.0"
 click = "^8.1.7"
 dynaconf = "^3.2.5"
@@ -64,3 +64,7 @@ strict = true
 
 [tool.ruff]
 fix = true
+show-fixes = true
+
+[tool.ruff.lint.isort]
+force-single-line = true
