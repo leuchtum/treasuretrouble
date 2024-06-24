@@ -4,6 +4,7 @@ from dynaconf import Dynaconf
 
 settings = Dynaconf(
     envvar_prefix="TT",
+    env_switcher="TT_ENV",
     settings_files=["settings.toml", ".secrets.toml"],
     environments=True,
     env="default",

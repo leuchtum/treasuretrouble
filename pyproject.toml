@@ -9,14 +9,13 @@ packages = [{ include = "treasuretrouble", from = "src" }]
 [tool.poetry.dependencies]
 python = "^3.12"
 pydantic = "^2.7.4"
-litestar = "^2.9.0"
+litestar = {extras = ["pydantic", "sqlalchemy", "standard"], version = "^2.9.1"}
 python-telegram-bot = "^21.3"
 jinja2 = "^3.1.4"
-piccolo = { extras = ["postgres", "sqlite"], version = "^1.12.0" }
-structlog = "^24.2.0"
 click = "^8.1.7"
 dynaconf = "^3.2.5"
 rich = "^13.7.1"
+aiosqlite = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"

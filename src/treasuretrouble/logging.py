@@ -1,9 +1,13 @@
-import structlog
+import logging
 
-from treasuretrouble.config import settings
-from treasuretrouble.version import __version__
+from litestar.logging import LoggingConfig
 
-logger = structlog.get_logger()
+logging_config = LoggingConfig(
+    root={"level": logging.getLevelName(logging.INFO), "handlers": ["console"]},
+    formatters={
+        "standard": {"format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"}
+    },
+    log_exceptions="always",
+)
 
-logger.info(f"Running in '{settings.current_env}' environment.")
-logger.info(f"Version: {__version__}")
+get_logger = logging_config.configure()

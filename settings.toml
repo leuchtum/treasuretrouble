@@ -1,3 +1,11 @@
 [default]
+debug = false
+database_url = "sqlite+aiosqlite:///prod.sqlite"
+
+[development]
+debug = true
+database_url = "sqlite+aiosqlite:///dev.sqlite"
 
 [testing]
+debug = false
+database_url = "sqlite+aiosqlite:///test.sqlite"
