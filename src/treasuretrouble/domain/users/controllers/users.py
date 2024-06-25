@@ -18,7 +18,7 @@ from treasuretrouble.domain.users.schemas import User
 from treasuretrouble.domain.users.schemas import UserCreate
 from treasuretrouble.domain.users.schemas import UserUpdate
 from treasuretrouble.domain.users.services import UserService
-from treasuretrouble.lib.util import convert_repository_exceptions
+from treasuretrouble.domain.util import convert_repository_exceptions
 
 
 class UserController(Controller):
