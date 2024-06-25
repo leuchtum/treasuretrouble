@@ -1,37 +1,40 @@
-from litestar.controller import Controller
+from __future__ import annotations
+
+from advanced_alchemy.service import OffsetPagination
+from litestar import Controller
+from litestar import delete
+from litestar import get
+from litestar import patch
+from litestar import post
 from litestar.di import Provide
-from litestar.handlers.http_handlers.decorators import delete
-from litestar.handlers.http_handlers.decorators import get
-from litestar.handlers.http_handlers.decorators import patch
-from litestar.handlers.http_handlers.decorators import post
-from litestar.pagination import OffsetPagination
 from litestar.params import Parameter
 from litestar.repository.filters import LimitOffset
 from pydantic import TypeAdapter
 
-from treasuretrouble.database.models import User
-from treasuretrouble.database.models import UserCreate
+import treasuretrouble.domain.users.urls as urls
 from treasuretrouble.database.models import UserModel
-from treasuretrouble.database.models import UserUpdate
-from treasuretrouble.database.users.repo import UserRepository
-from treasuretrouble.database.users.repo import provide_users_repo
-from treasuretrouble.database.util import convert_repository_exceptions
+from treasuretrouble.domain.users.dependencies import provide_users_service
+from treasuretrouble.domain.users.schemas import User
+from treasuretrouble.domain.users.schemas import UserCreate
+from treasuretrouble.domain.users.schemas import UserUpdate
+from treasuretrouble.domain.users.services import UserService
+from treasuretrouble.lib.util import convert_repository_exceptions
 
 
 class UserController(Controller):
     """User CRUD"""
 
-    dependencies = {"users_repo": Provide(provide_users_repo)}
+    dependencies = {"users_service": Provide(provide_users_service)}
 
-    @get(path="/users")
+    @get(path=urls.LIST_USERS)
     async def list_user(
         self,
-        users_repo: UserRepository,
+        users_service: UserService,
         limit_offset: LimitOffset,
     ) -> OffsetPagination[User]:
         """List users."""
         with convert_repository_exceptions():
-            results, total = await users_repo.list_and_count(limit_offset)
+            results, total = await users_service.list_and_count(limit_offset)
         type_adapter = TypeAdapter(list[User])
         return OffsetPagination[User](
             items=type_adapter.validate_python(results),
@@ -40,24 +43,23 @@ class UserController(Controller):
             offset=limit_offset.offset,
         )
 
-    @post(path="/users")
+    @post(path=urls.CREATE_USER)
     async def create_user(
         self,
-        users_repo: UserRepository,
+        users_service: UserService,
         data: UserCreate,
     ) -> User:
         """Create a new user."""
         with convert_repository_exceptions():
-            obj = await users_repo.add(
+            obj = await users_service.create(
                 UserModel(**data.model_dump(exclude_unset=True, exclude_none=True))
             )
-        await users_repo.session.commit()
         return User.model_validate(obj)
 
-    @get(path="/users/{user_id:int}")
+    @get(path=urls.GET_USER)
     async def get_user(
         self,
-        users_repo: UserRepository,
+        users_service: UserService,
         user_id: int = Parameter(
             title="User ID",
             description="The user to retrieve.",
@@ -65,13 +67,13 @@ class UserController(Controller):
     ) -> User:
         """Get an existing user."""
         with convert_repository_exceptions():
-            obj = await users_repo.get(user_id)
+            obj = await users_service.get(user_id)
         return User.model_validate(obj)
 
-    @patch(path="/users/{user_id:int}")
+    @patch(path=urls.UPDATE_USER)
     async def update_user(
         self,
-        users_repo: UserRepository,
+        users_service: UserService,
         data: UserUpdate,
         user_id: int = Parameter(
             title="User ID",
@@ -82,14 +84,13 @@ class UserController(Controller):
         as_dict = data.model_dump(exclude_unset=True, exclude_none=True)
         as_dict.update({"id": user_id})
         with convert_repository_exceptions():
-            obj = await users_repo.update(UserModel(**as_dict))
-        await users_repo.session.commit()
+            obj = await users_service.update(UserModel(**as_dict))
         return User.model_validate(obj)
 
-    @delete(path="/users/{user_id:int}")
+    @delete(path=urls.DELETE_USER)
     async def delete_user(
         self,
-        users_repo: UserRepository,
+        users_service: UserService,
         user_id: int = Parameter(
             title="User ID",
             description="The user to delete.",
@@ -97,5 +98,4 @@ class UserController(Controller):
     ) -> None:
         """Delete a user from the system."""
         with convert_repository_exceptions():
-            await users_repo.delete(user_id)
-        await users_repo.session.commit()
+            await users_service.delete(user_id)

@@ -1,0 +1,7 @@
+[default]
+name = "Treasure Trouble"
+debug = true
+
+[testing]
+name = "Treasure Trouble"
+debug = false

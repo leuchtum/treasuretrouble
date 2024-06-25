@@ -1,0 +1,9 @@
+[default]
+level = "INFO"
+uvicorn_level = "WARNING"
+sqlalchemy_level = "WARNING"
+
+[testing]
+level = "INFO"
+uvicorn_level = "WARNING"
+sqlalchemy_level = "WARNING"

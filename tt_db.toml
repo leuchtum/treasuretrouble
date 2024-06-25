@@ -1,0 +1,5 @@
+[default]
+url = "sqlite+aiosqlite:///db.sqlite3"
+
+[testing]
+url = "sqlite+aiosqlite:///:memory:"

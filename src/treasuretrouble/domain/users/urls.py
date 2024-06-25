@@ -1,0 +1,5 @@
+LIST_USERS = "/users"
+CREATE_USER = "/users"
+GET_USER = "/users/{user_id:int}"
+UPDATE_USER = "/users/{user_id:int}"
+DELETE_USER = "/users/{user_id:int}"
