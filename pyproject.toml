@@ -19,7 +19,7 @@ aiosqlite = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
-mypy = "^1.10.0"
+mypy = "^1.10.1"
 ruff = "^0.4.10"
 bump-my-version = "^0.23.0"
 pytest-asyncio = "^0.23.7"
